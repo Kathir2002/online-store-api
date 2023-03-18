@@ -12,6 +12,8 @@ var storage = multer.diskStorage({
   },
 });
 
+
+
 const upload = multer({ storage: storage });
 
 router.get("/all-product", productController.getAllProduct);
@@ -20,8 +22,8 @@ router.post("/product-by-price", productController.getProductByPrice);
 router.post("/wish-product", productController.getWishProduct);
 router.post("/cart-product", productController.getCartProduct);
 
-router.post("/add-product", upload.any(), productController.postAddProduct);
-router.post("/edit-product", upload.any(), productController.postEditProduct);
+router.post("/add-product", upload.single(), productController.postAddProduct);
+router.post("/edit-product", upload.single(), productController.postEditProduct);
 router.post("/delete-product", productController.getDeleteProduct);
 router.post("/single-product", productController.getSingleProduct);
 

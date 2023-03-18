@@ -2,6 +2,7 @@ const orderModel = require("../models/orders");
 const nodemailer = require('nodemailer');
 require("dotenv").config();
 const moment = require("moment")
+const productModel = require("../models/products")
 
 let sid = process.env.TWILIO_ACCOUNT_SID
 let auth_token = process.env.TWILIO_ACCOUNT_AUTH
@@ -83,7 +84,7 @@ const ordersController = {
         let save = await newOrder.save();
         let userDetails = await orderModel.findById(save._id).populate("user")
         let pId = allProduct[0].id;
-        // let produtDetails = await productModel.findById(pId)
+        let produtDetails = await productModel.findById(pId)
 
         if (save) {
 
@@ -96,7 +97,7 @@ const ordersController = {
                         
 Order Number: ${transactionId}
 Order Date: ${moment().format("YYYY-MM-DD HH:mm:ss")}
-Product(s): [insert product name(s) and quantity]
+Product(s): ${produtDetails.pName}
 Total Amount: ${amount}
 Your Address: ${address}
                         
@@ -201,7 +202,7 @@ RMS Cottage Industries`
                     <p>We wanted to confirm that your order has been successful. Here are the details:</p>
                     <div class="details">
                         <div class="product">
-                            <p><strong>Product Name:</strong> </p>
+                            <p><strong>Product Name: ${produtDetails.pName}</strong> </p>
                             <p><strong>Price:</strong> &#x20b9; ${amount}</p>
                             <p><strong>Quantity:</strong> ${allProduct[0].quantitiy} </p>
                         </div>
