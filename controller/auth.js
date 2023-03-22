@@ -94,69 +94,107 @@ class Auth {
                     subject: "Your Registration Success",
                     html: `<!DOCTYPE html>
                     <html>
+                    
                     <head>
-                      <meta charset="UTF-8">
-                      <title>Registration Successful</title>
-                      <style>
-                        body {
-                          font-family: Arial, sans-serif;
-                          font-size: 16px;
-                          color: #444444;
-                        }
-                        .container {
-                          max-width: 600px;
-                          margin: 0 auto;
-                          padding: 20px;
-                          background-color: #f9f9f9;
-                          border: 1px solid #dddddd;
-                        }
-                        h1, h2, h3, h4, h5, h6 {
-                          color: #444444;
-                          margin: 0;
-                          line-height: 1.2;
-                        }
-                        p {
-                          margin: 0 0 1em 0;
-                        }
-                        .bold {
-                          font-weight: bold;
-                        }
-                        .footer {
-                          margin-top: 40px;
-                          text-align: center;
-                          color: #888888;
-                        }
-                      </style>
+                        <meta charset="UTF-8">
+                        <title>Registration Successful</title>
+                        <style type="text/css">
+                            /* CSS styles for the email template */
+                            body {
+                                font-family: Arial, sans-serif;
+                                font-size: 16px;
+                                line-height: 1.5;
+                                color: #333;
+                                background-color: #f7f7f7;
+                                padding: 30px 0;
+                            }
+                    
+                            .container {
+                                max-width: 600px;
+                                margin: 0 auto;
+                                padding: 40px;
+                                background-color: #fff;
+                                border-radius: 10px;
+                                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                            }
+                    
+                            h1 {
+                                font-size: 32px;
+                                color: #007bff;
+                                margin-top: 0;
+                                margin-bottom: 20px;
+                                text-align: center;
+                                text-transform: uppercase;
+                                letter-spacing: 2px;
+                            }
+                    
+                            p {
+                                margin-top: 0;
+                                margin-bottom: 20px;
+                                text-align: justify;
+                                line-height: 1.8;
+                            }
+                    
+                            .button {
+                                display: inline-block;
+                                padding: 15px 30px;
+                                background-color: #007bff;
+                                margin-left: 12rem;
+                                margin-top: 2rem;
+                                color: #fff;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                                transition: background-color 0.2s ease;
+                            }
+                    
+                            .button:hover {
+                                background-color: #0062cc;
+                                color: white;
+                            }
+                    
+                            .details {
+                                margin-top: 30px;
+                                padding: 20px;
+                                background-color: #f5f5f5;
+                                border-radius: 5px;
+                                border: 1px solid #ccc;
+                            }
+                    
+                            .details p {
+                                margin-top: 0;
+                                margin-bottom: 10px;
+                            }
+                    
+                            .footer {
+                                margin-top: 40px;
+                                padding-top: 20px;
+                                border-top: 1px solid #ccc;
+                                font-size: 14px;
+                                color: #666;
+                            }
+                        </style>
                     </head>
+                    
                     <body>
-                      <div class="container">
-                        <h1>Registration Successful</h1>
-                        <p>Thank you for registering with us! Your account has been successfully created. Here are your account details:</p>
-                    
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td>Email:</td>
-                              <td class="bold">${email}</td>
-                            </tr>
-                            <tr>
-                              <td>Name::</td>
-                              <td class="bold">${name}</td>
-                            </tr>
-                            <tr>
-                              <td>Password:</td>
-                              <td class="bold">${myPass}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                    
-                        <p>You can now log in to your account at <a target="_blank" href="http://localhost:3000/">http://localhost:3000</a>. If you have any questions or concerns, please contact us at <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a>.</p>
-                      </div>
-                    
-                      <div class="footer">
-                        <p>This email was sent to you by RMS Cottage Industries.</p>
-                      </div>
+                        <div class="container">
+                            <h1>Registration Successful</h1>
+                            <p>Thank you for registering with our site. Your account has been successfully created.</p>
+                            <p>Please use the following credentials to log in to your account:</p>
+                            <div class="details">
+                                <p><strong>Name:</strong> ${name}</p>
+                                <p><strong>Email:</strong> ${email}</p>
+                                <p><strong>Password:</strong> ${myPass}</p>
+                            </div>
+                            <a href="https://rms-cottage.onrender.com/" class="button">Log in to your account</a>
+                        </div>
+                        <div class="footer">
+                            <p>If you have any questions or concerns, please don't hesitate to <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a> call us at 9487257490.</p>
+                            <p>You received this email because you recently registered on our website. </p>
+                            <p>If you did not register, please call us at 9487257490 and mail us <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a>.</p>
+                        </div>
                     </body>
+                    
                     </html>`
                   }
                   mailTransporter.sendMail(mailOptions, err => {
@@ -233,4 +271,3 @@ class Auth {
 const authController = new Auth();
 module.exports = authController;
 
-// module.exports = EmailData

@@ -2,7 +2,6 @@ const userModel = require("../models/users")
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer')
 require("dotenv").config();
-// const email = require("./auth")
 
 let mailTransporter = nodemailer.createTransport({
   service: "gmail",
@@ -100,7 +99,7 @@ class User {
       currentUser.exec((err, result) => {
         if (err) console.log(err);
         let mailOptions = {
-          from: "mailto:rmscottageindustry@gmail.com",
+          from: "rmscottageindustry@gmail.com",
           to: mailID,
           subject: "Your Details Changed",
           html: `<!DOCTYPE html>
@@ -108,58 +107,97 @@ class User {
           
           <head>
               <meta charset="UTF-8">
-              <title>User Details Change</title>
-              <style>
-                  / CSS styles for the email /
+              <title>Successful Update of User Information</title>
+              <style type="text/css">
                   body {
                       font-family: Arial, sans-serif;
-                      background-color: #f4f4f4;
+                      font-size: 14px;
+                      line-height: 1.5;
+                      color: #333333;
                   }
           
                   .container {
                       max-width: 600px;
                       margin: 0 auto;
-                      background-color: #fff;
                       padding: 20px;
+                      background-color: #f5f5f5;
+                      border: 1px solid #cccccc;
                   }
           
                   h1 {
-                      font-size: 28px;
-                      color: #444;
                       margin-top: 0;
+                      font-size: 24px;
+                      font-weight: bold;
+                      color: #333333;
                       text-align: center;
                   }
           
                   p {
+                      margin-bottom: 10px;
+                      text-align: center;
+                  }
+          
+                  .success-message {
+                      color: green;
+                      font-weight: bold;
+                  }
+          
+                  .info-list {
+                      margin-top: 20px;
+                      padding-left: 0;
+                      list-style: none;
+                      text-align: center;
+                  }
+          
+                  .info-list li {
+                      margin-bottom: 10px;
+                  }
+          
+                  .info-list label {
+                      display: inline-block;
+                      width: 120px;
+                      font-weight: bold;
+                      color: #333333;
+                      text-align: right;
+                      margin-right: 10px;
+                  }
+          
+                  .info-list span {
+                      color: green;
+                      font-weight: bold;
+                  }
+          
+                  .button {
+                      display: block;
+                      width: 200px;
+                      height: 40px;
+                      line-height: 40px;
+                      margin-left: 12rem;
                       font-size: 16px;
-                      line-height: 1.5;
-                      margin-bottom: 20px;
-                  }
-          
-                  .details {
-                      margin-top: 30px;
-                      padding: 20px;
-                      border: 1px solid #ccc;
-                      background-color: #f9f9f9;
-                  }
-          
-                  .details p {
-                      margin: 0;
+                      font-weight: bold;
+                      color: #ffffff;
+                      background-color: #007bff;
+                      border: none;
+                      border-radius: 5px;
+                      margin: 20px auto 0;
+                      text-align: center;
+                      text-decoration: none;
                   }
               </style>
           </head>
           
           <body>
               <div class="container">
-                  <h1>User Details Changed</h1>
-                  <p>Hello,</p>
-                  <p>Your personal details have been updated. Please review the changes below:</p>
-                  <div class="details">
-                      <p><strong>Name:</strong>${name}</p>
-                      <p><strong>Mobile Number:</strong> +91 ${phoneNumber}</p>
-                  </div>
-                  <p>If you did not make these changes, please contact us immediately.</p>
-                  <p>Thank you!</p>
+                  <h1>Successful Update of User Information</h1>
+                  <p class="success-message">Your information has been successfully updated on our website.</p>
+                  <p>If you did not make this change, please contact our customer support team immediately.</p>
+                  <ul class="info-list">
+                      <li><label>Name:</label><span> ${name}</span></li>
+                      <li><label>Mobile Number:</label><span>+91 ${phoneNumber}</span></li>
+                  </ul>
+                  <a href="https://rms-cottage.onrender.com/" class="button">Visit Online Shop</a>
+                  <p>please don't hesitate to call us at 9487257490 and mail us <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a>.<p/>
+                  <p>Thank you for using our website!</p>
               </div>
           </body>
           
@@ -206,6 +244,7 @@ class User {
         });
       } else {
         let mailID;
+        let uName
         const email = await userModel.findById(uId, function (err, email) {
           if (err) {
             console.log(err);
@@ -213,6 +252,7 @@ class User {
           else {
             console.log(email.email);
             mailID = email.email
+            uName = email.name
           }
         })
         const oldPassCheck = await bcrypt.compare(oldPassword, data.password);
@@ -225,63 +265,84 @@ class User {
           passChange.exec((err, result) => {
             if (err) console.log(err);
             let mailOptions = {
-              from: "mailto:rmscottageindustry@gmail.com",
+              from: "rmscottageindustry@gmail.com",
               to: mailID,
               subject: "Your Password Changed",
               html: `<!DOCTYPE html>
               <html>
               
               <head>
+                  <title>Password Changed Successfully</title>
                   <meta charset="UTF-8">
-                  <title>Password Change Notification</title>
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
                   <style>
-                      / CSS styles for the email /
+                      /* Styles for the email */
                       body {
                           font-family: Arial, sans-serif;
-                          background-color: #f4f4f4;
+                          background-color: #f5f5f5;
+                          color: #333333;
+                          line-height: 1.5;
                       }
               
                       .container {
                           max-width: 600px;
                           margin: 0 auto;
-                          background-color: #fff;
                           padding: 20px;
+                          background-color: #ffffff;
                       }
               
                       h1 {
-                          font-size: 28px;
-                          color: #444;
+                          font-size: 24px;
                           margin-top: 0;
-                          text-align: center;
                       }
               
                       p {
-                          font-size: 16px;
-                          line-height: 1.5;
                           margin-bottom: 20px;
                       }
               
-                      .details {
-                          margin-top: 30px;
-                          padding: 20px;
-                          border: 1px solid #ccc;
-                          background-color: #f9f9f9;
+                      .button {
+                          display: inline-block;
+                          padding: 10px 20px;
+                          background-color: #007bff;
+                          margin-left: 12rem;
+                          color: #ffffff;
+                          border-radius: 5px;
+                          text-decoration: none;
                       }
               
-                      .details p {
-                          margin: 0;
+                      .button:hover {
+                          background-color: #0069d9;
+                      }
+              
+                      /* Styles for the password field */
+                      .password-field {
+                          display:block;
+                          padding: 10px 20px;
+                          background-color: #eeeeee;
+                          border-radius: 5px;
+                          font-family: monospace;
+                      }
+              
+                      /* Media query to make the email responsive */
+                      @media only screen and (max-width: 600px) {
+                          .container {
+                              width: 100%;
+                              max-width: 100%;
+                          }
                       }
                   </style>
               </head>
               
               <body>
                   <div class="container">
-                      <h1>Password Change Notification</h1>
-                      <p>Hello,</p>
-                      <p>This email is to confirm that your password has been changed.</p>
-                      <h3>Your Current Password: ${pass}</h3>
-                      <p>If you did not request this change, please contact us immediately.</p>
-                      <p>Thank you!</p>
+                      <h1>Password Changed Successfully</h1>
+                      <p>Hai ${uName}, Your password has been successfully changed on our website. Your new password is:</p>
+                      <p class="password-field"><strong>Email</strong> ${mailID} \n </p>
+                      <p class="password-field"><strong>New Password</strong> ${pass} \n </p>
+                      <a href="https://rms-cottage.onrender.com/" class="button">Go to Website</a>
+                      <p>Please remember to keep your password secure and do not share it with anyone. If you did not make this
+                      change, please don't hesitate to call us at 9487257490 and mail us <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a>.</p>
+                      <p>Thank you for using our website!</p>
                   </div>
               </body>
               

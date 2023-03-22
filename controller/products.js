@@ -135,6 +135,15 @@ class Product {
                         border-collapse: collapse;
                         margin-bottom: 20px;
                     }
+                    .button {
+                      display: inline-block;
+                      padding: 10px 20px;
+                      background-color: #007bff;
+                      margin-left: 12rem;
+                      color: #ffffff;
+                      border-radius: 5px;
+                      text-decoration: none;
+                  }
             
                     th {
                         background-color: #f2f2f2;
@@ -192,6 +201,8 @@ class Product {
                             <td class="status">${pStatus}</td>
                         </tr>
                     </table>
+                    <a href="https://rms-cottage.onrender.com/" class="button">Go to Website</a>
+                    <p>please don't hesitate to call us at 9487257490 and mail us <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a>.<p/>
                     <p>Thank you for your attention. We hope you're excited about our new product!</p>
                 </div>
             </body>
