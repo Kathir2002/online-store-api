@@ -83,7 +83,7 @@ const ordersController = {
           let options = {
             authorization: process.env.FAST2MESSAGE_API_KEY,
             numbers: [`${phone}`],
-            message: `Thank you for placing your order. View Order details at https://rms-cottage.onrender.com .Best regards,RMS Agro`
+            message: `Thank you for placing order. View details at https://rms-cottage.onrender.com/ .Best regards,RMS Agro`
           }
           fast2sms.sendMessage(options)
             .then((response) => {
@@ -92,8 +92,9 @@ const ordersController = {
             .catch((err) => {
               console.log(err)
             })
-          let arr=[]
-          let quantitiy1, quantity2, quantitiy3, quantitiy4, pId1, pId2, pId3, pId4, produtDetails1, produtDetails2, produtDetails3, produtDetails4 ,productName1,productName2,productName3,productName4
+
+          let arr = []
+          let quantitiy1, quantity2, quantitiy3, quantitiy4, pId1, pId2, pId3, pId4, produtDetails1, produtDetails2, produtDetails3, produtDetails4, productName1, productName2, productName3, productName4
           let arrLen = allProduct.length
           if (arrLen == 2) {
             quantity2 = allProduct[1].quantitiy + allProduct[0].quantitiy
@@ -364,7 +365,7 @@ const ordersController = {
                     </tr>
                   </tbody>
                 </table>
-                <a href="https://rms-cottage.onrender.com/" class="button">Go to Website</a>
+                <a href="https://rms-cottage.onrender.com/user/orders" class="button">Go to Website</a>
                 <p>If you have any questions or concerns, please feel free to contact us at 9487257490 and mail us at <a href="mailto:maanmark@gmail.com">maanmark@gmail.com</a>.</p>
                 <p>Thank you for your business!</p>
               </div>

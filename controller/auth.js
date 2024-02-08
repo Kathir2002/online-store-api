@@ -19,6 +19,7 @@ class Auth {
     let { loggedInUserId } = req.body;
     try {
       let loggedInUserRole = await userModel.findById(loggedInUserId);
+      console.log(loggedInUserRole, "loggedInUserRole");
 
       res.json({ role: loggedInUserRole.userRole });
     } catch {
